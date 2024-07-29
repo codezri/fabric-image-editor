@@ -1,54 +1,7 @@
-import { useRef, useEffect, forwardRef, useState } from 'react';
-import { Canvas, Image, IText, PencilBrush, filters } from 'fabric';
+import { useEffect, useState } from 'react';
+import { Image, IText, filters } from 'fabric';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './App.css';
-
-const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
-
-  useEffect(() => {
-    if(!canvas) return;
-  
-    function handlekeyPress(e) {
-      if(e.key === 'Delete') {
-        for(const obj of canvas.getActiveObjects()) {
-          canvas.remove(obj);
-          canvas.discardActiveObject();
-        }
-      }
-    }
-
-    function handleSelection(e) {
-      const obj = e?.selected?.length === 1 ? e.selected[0] : null;
-      const filter = obj?.filters?.at(0);
-      console.log(filter);
-      setCurrentFilter(filter ? filter.type.toLowerCase(): null);
-    }
-
-    document.addEventListener('keydown', handlekeyPress, false);
-    canvas.on({
-      'selection:created': handleSelection,
-      'selection:updated': handleSelection,
-      'selection:cleared': handleSelection
-    });
-    
-    return () => {
-      document.removeEventListener('keydown', handlekeyPress, false);
-      canvas.off({
-        'selection:created': handleSelection,
-        'selection:updated': handleSelection,
-        'selection:cleared': handleSelection
-      });
-    }
-    
-  }, [canvas, setCurrentFilter]);
-
-  return(
-    <div className="canvasbox">
-      <canvas ref={ref}></canvas>
-    </div>
-  );
-});
-
+console.log(filters);
 const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
   const [drawingMode, setDrawingMode] = useState(false);
 
@@ -61,10 +14,14 @@ const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
       switch(currentFilter) {
         case 'sepia':
           return new filters.Sepia();
-        case 'blur':
-          return new filters.Blur({blur: 0.2});
+        case 'vintage':
+          return new filters.Vintage();
         case 'invert':
           return new filters.Invert();
+        case 'polaroid':
+          return new filters.Polaroid();
+        case 'grayscale':
+          return new filters.Grayscale();
         default:
           return null;
       }
@@ -144,9 +101,11 @@ const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
     </button>
     {currentFilter && 
       <select onChange={(e) => setCurrentFilter(e.target.value)} value={currentFilter}>
-        <option value="blur">Blur</option>
         <option value="sepia">Sepia</option>
+        <option value="vintage">Vintage</option>
         <option value="invert">Invert</option>
+        <option value="polaroid">Polaroid</option>
+        <option value="grayscale">Grayscale</option>
       </select>
     }
     <button title="Clear all" onClick={clearAll}>
@@ -159,30 +118,4 @@ const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
   );
 };
 
-function App() {
-  const canvasRef = useRef(null);
-  const [canvas, setCanvas] = useState(null);
-  const [currentFilter, setCurrentFilter] = useState(null);
-
-  useEffect(() => {
-    const c = new Canvas(canvasRef.current, {backgroundColor: 'white'}); 
-    c.setDimensions({width: 1000, height: 500});
-    const brush = new PencilBrush(c);
-    brush.color = 'black';
-    brush.width = 4;
-    c.freeDrawingBrush = brush;
-    setCanvas(c);
-    
-    return () => c.dispose();
-    
-  }, [canvasRef, setCanvas]);
-  
-  return (
-    <div className="editor">
-      <Toolbox canvas={canvas} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
-      <EditorCanvas ref={canvasRef} canvas={canvas} setCurrentFilter={setCurrentFilter}/>
-    </div>
-  );
-}
-
-export default App;
+export default Toolbox;
