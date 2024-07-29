@@ -24,8 +24,16 @@ function App() {
   
   return (
     <div className="editor">
-      <Toolbox canvas={canvas} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
-      <EditorCanvas ref={canvasRef} canvas={canvas} setCurrentFilter={setCurrentFilter}/>
+      <Toolbox 
+        canvas={canvas} 
+        currentFilter={currentFilter} 
+        setCurrentFilter={setCurrentFilter}
+      />
+      <EditorCanvas 
+        ref={canvasRef} 
+        canvas={canvas} 
+        setCurrentFilter={setCurrentFilter}
+        />
     </div>
   );
 }
