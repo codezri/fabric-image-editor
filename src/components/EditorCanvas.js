@@ -17,7 +17,6 @@ const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
     function handleSelection(e) {
       const obj = e?.selected?.length === 1 ? e.selected[0] : null;
       const filter = obj?.filters?.at(0);
-      console.log(filter);
       setCurrentFilter(filter ? filter.type.toLowerCase(): null);
     }
 
@@ -41,7 +40,7 @@ const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
 
   return(
     <div className="canvasbox">
-      <canvas ref={ref}></canvas>
+      <canvas ref={ref} width="1000" height="500"></canvas>
     </div>
   );
 });

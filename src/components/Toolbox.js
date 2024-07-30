@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Image, IText, filters } from 'fabric';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-console.log(filters);
+
 const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
   const [drawingMode, setDrawingMode] = useState(false);
 
@@ -81,40 +81,40 @@ const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
   
   return (
     <div className="toolbox">
-    <button title="Add image">
-      <FontAwesomeIcon icon="image" />
-      <input
-        type="file"
-        accept=".png, .jpg, .jpeg"
-        onChange={fileHandler}/>
-    </button>
-    <button title="Add text" onClick={addText}>
-      <FontAwesomeIcon icon="font" />
-    </button>
-    <button title="Drawing mode" onClick={toggleDrawingMode} className={drawingMode ? 'active' : ''}>
-      <FontAwesomeIcon icon="pencil" />
-    </button>
-    <button title="Filters" 
-      onClick={() => setCurrentFilter(currentFilter ? null : 'sepia')} 
-      className={currentFilter ? 'active' : ''}>
-      <FontAwesomeIcon icon="filter" />
-    </button>
-    {currentFilter && 
-      <select onChange={(e) => setCurrentFilter(e.target.value)} value={currentFilter}>
-        <option value="sepia">Sepia</option>
-        <option value="vintage">Vintage</option>
-        <option value="invert">Invert</option>
-        <option value="polaroid">Polaroid</option>
-        <option value="grayscale">Grayscale</option>
-      </select>
-    }
-    <button title="Clear all" onClick={clearAll}>
-      <FontAwesomeIcon icon="trash" />
-    </button>
-    <button title="Download as image" onClick={downloadImage}>
-      <FontAwesomeIcon icon="download" />
-    </button>
-  </div>
+      <button title="Add image">
+        <FontAwesomeIcon icon="image" />
+        <input
+          type="file"
+          accept=".png, .jpg, .jpeg"
+          onChange={fileHandler}/>
+      </button>
+      <button title="Add text" onClick={addText}>
+        <FontAwesomeIcon icon="font" />
+      </button>
+      <button title="Drawing mode" onClick={toggleDrawingMode} className={drawingMode ? 'active' : ''}>
+        <FontAwesomeIcon icon="pencil" />
+      </button>
+      <button title="Filters" 
+        onClick={() => setCurrentFilter(currentFilter ? null : 'sepia')} 
+        className={currentFilter ? 'active' : ''}>
+        <FontAwesomeIcon icon="filter" />
+      </button>
+      {currentFilter && 
+        <select onChange={(e) => setCurrentFilter(e.target.value)} value={currentFilter}>
+          <option value="sepia">Sepia</option>
+          <option value="vintage">Vintage</option>
+          <option value="invert">Invert</option>
+          <option value="polaroid">Polaroid</option>
+          <option value="grayscale">Grayscale</option>
+        </select>
+      }
+      <button title="Clear all" onClick={clearAll}>
+        <FontAwesomeIcon icon="trash" />
+      </button>
+      <button title="Download as image" onClick={downloadImage}>
+        <FontAwesomeIcon icon="download" />
+      </button>
+    </div>
   );
 };
 

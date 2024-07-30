@@ -10,16 +10,15 @@ function App() {
   const [currentFilter, setCurrentFilter] = useState(null);
 
   useEffect(() => {
-    const c = new Canvas(canvasRef.current, {backgroundColor: 'white'}); 
-    c.setDimensions({width: 1000, height: 500});
-    const brush = new PencilBrush(c);
+    const canvas = new Canvas(canvasRef.current, {backgroundColor: 'white'}); 
+    canvas.setDimensions({width: 1000, height: 500});
+    const brush = new PencilBrush(canvas);
     brush.color = 'black';
     brush.width = 4;
-    c.freeDrawingBrush = brush;
-    setCanvas(c);
+    canvas.freeDrawingBrush = brush;
+    setCanvas(canvas);
     
-    return () => c.dispose();
-    
+    return () => canvas.dispose();
   }, [canvasRef, setCanvas]);
   
   return (

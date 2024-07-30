@@ -22,30 +22,28 @@
   height: 500px;
 }
 
-.toolbox {
-  button {
-    width: 32px;
-    height: 32px;
-    position: relative;
-    font-size: 16px;
-    border: none;
-    background-color: #ccc;
-    border-radius: 0.2em;
-  }
-
-  button.active {
-    background-color: #edbd50;
-  }
-
-  input[type=file] {
-    width: 100%;
-    opacity: 0;
-    position: absolute;
-    inset: 0;
-  }
-
-  select {
-    border-radius: 0.2em;
-    min-width: 10em;
-  }
+.toolbox button {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  font-size: 16px;
+  border: none;
+  background-color: #ccc;
+  border-radius: 0.2em;
 }
+
+.toolbox button.active {
+  background-color: #edbd50;
+}
+
+.toolbox input[type=file] {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.toolbox select {
+  border-radius: 0.2em;
+  min-width: 10em;
+}
+
