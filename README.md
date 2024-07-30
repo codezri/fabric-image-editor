@@ -1,6 +1,8 @@
 # fabric-image-editor
 A simple image editor app created with Fabric.js v6 and React.
 
+![](./media/preview.gif)
+
 ## How to run this project?
 Clone the repository and install dependencies:
 
