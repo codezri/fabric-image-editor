@@ -5,7 +5,7 @@ const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
   useEffect(() => {
     if(!canvas) return;
   
-    function handlekeyPress(e) {
+    function handlekeyDown(e) {
       if(e.key === 'Delete') {
         for(const obj of canvas.getActiveObjects()) {
           canvas.remove(obj);
@@ -15,12 +15,12 @@ const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
     }
 
     function handleSelection(e) {
-      const obj = e?.selected?.length === 1 ? e.selected[0] : null;
+      const obj = e.selected?.length === 1 ? e.selected[0] : null;
       const filter = obj?.filters?.at(0);
-      setCurrentFilter(filter ? filter.type.toLowerCase(): null);
+      setCurrentFilter(filter ? filter.type.toLowerCase() : null);
     }
 
-    document.addEventListener('keydown', handlekeyPress, false);
+    document.addEventListener('keydown', handlekeyDown, false);
     canvas.on({
       'selection:created': handleSelection,
       'selection:updated': handleSelection,
@@ -28,7 +28,7 @@ const EditorCanvas = forwardRef(({ canvas, setCurrentFilter }, ref) =>{
     });
     
     return () => {
-      document.removeEventListener('keydown', handlekeyPress, false);
+      document.removeEventListener('keydown', handlekeyDown, false);
       canvas.off({
         'selection:created': handleSelection,
         'selection:updated': handleSelection,

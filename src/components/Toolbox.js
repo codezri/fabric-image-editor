@@ -29,12 +29,7 @@ const Toolbox = ({ canvas, currentFilter, setCurrentFilter }) => {
     const filter = getSelectedFilter();
     const img = canvas.getActiveObject();
     
-    if(filter) {
-      img.filters=[filter];
-    }
-    else {
-      img.filters=[];
-    }
+    img.filters=filter ? [filter] : [];
     img.applyFilters();
     canvas.renderAll();
   }, [currentFilter, canvas]);
